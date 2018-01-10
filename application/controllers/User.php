@@ -48,10 +48,20 @@ class User extends CI_Controller {
 				}
 				$this->users->update($data, $this->session->userdata('ID'));
 				$this->session->sess_destroy();
-				redirect('dashboard/login');
+				if ( ! $this->input->is_ajax_request()) {
+					redirect('dashboard/login');
+				}
 			}
 			
 		}
+		
+		if ($this->input->is_ajax_request()) {
+			echo json_encode([
+				'message' => isset($error) ? $error : ''
+			]);
+			exit;
+		}
+		
 		$args['user'] = $user;
 		$args['title'] = 'Edit Profile';
 		$args['error'] = isset($error) ? $error : [];

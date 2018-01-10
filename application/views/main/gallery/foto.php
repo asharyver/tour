@@ -25,7 +25,7 @@
 									    container: 'container-<?php echo $i;?>',
 									    caption: '<?php echo $row->name;?>',
 									    loading_img: 'http:<?php echo base_url('app-contents/main/images/photosphere-logo.gif');?>',
-									    navbar: 'zoom caption fullscreen',
+									    navbar: 'autorotate zoom caption fullscreen',
 									    default_fov: 70,
 									    size: {
 									      height: 350

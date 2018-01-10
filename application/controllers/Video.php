@@ -73,7 +73,7 @@ class Video extends CI_Controller {
 				$data = [
 					'name' => empty($name = $this->input->post('name')) ? $files['raw_name'] : $name,
 					'source' => 'app-contents/video/' . $files['file_name'],
-					'thumbnail' => 'app-contents/video/' . $thumbnail['file_name'],
+					'thumbnail' => 'app-contents/poster/' . $thumbnail['file_name'],
 					'type' => $files['file_type']
 				];
 				$this->videos->save($data);

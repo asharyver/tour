@@ -11,6 +11,7 @@
                             <?php if ( ! empty($error)): foreach ($error as $err):?>
                                 <div class="alert alert-danger"><?php echo $err;?></div>
                             <?php endforeach; endif;?>
+                            <div id="errorContainer"></div>
                             <form role="form" action="" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="fullname">Nama Lengkap</label>
@@ -35,7 +36,7 @@
                                     <input type="file" id="photo" name="photo" accept="image/*">
                                     <p class="help-block">Isi jika ingin mengubah foto</p>
                             </div>
-                            <button type="submit" class="btn btn-info" name="save" value="save">Save</button>
+                            <button type="button" class="btn btn-info" name="save" value="save">Save</button>
                         </form>
                         </div>
 
@@ -47,3 +48,27 @@
     <div class="clearfix"></div>
 <!-- </section> -->
 <div class="clearfix"></div>
+<script>
+    $('[name=save]').click(function(event) {
+        $.ajax({
+            url: '<?php echo base_url('user/edit');?>',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                fullname: $('#fullname').val(),
+                username: $('#username').val(),
+                password: $('#password').val(),
+                repassword: $('#repassword').val()
+            },
+            success: function(res) {
+                if (res.message.length > 0) {
+                    for (var i = 0, l = res.message.length; i < l; ++i) {
+                        $('#errorContainer').html('<div class="alert alert-danger">'+res.message[i]+'</div>');
+                    }
+                } else {
+                    window.location.assign('<?php echo base_url('dashboard/logout');?>');
+                }
+            }
+        });
+    });
+</script>

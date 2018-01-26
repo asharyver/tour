@@ -59,6 +59,7 @@ class Video extends CI_Controller {
 		$config['allowed_types']    = '*';
 		$config['overwrite'] 		= true;
 		$this->load->library('upload', $config);
+		
 		if ( ! $this->upload->do_upload('video')) {
 			$this->session->set_flashdata('error', $this->session->flashdata('error') . $this->upload->display_errors());
 		} else {

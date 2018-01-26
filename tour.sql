@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 06, 2018 at 08:19 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Host: 127.0.0.1
+-- Generation Time: Jan 13, 2018 at 10:17 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -35,10 +33,6 @@ CREATE TABLE `photos` (
   `shown` tinyint(1) NOT NULL DEFAULT '0',
   `time` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `photos`
---
 
 -- --------------------------------------------------------
 
@@ -95,6 +89,10 @@ CREATE TABLE `videos` (
 -- Dumping data for table `videos`
 --
 
+INSERT INTO `videos` (`ID`, `name`, `source`, `thumbnail`, `type`) VALUES
+(1, 'Materi', 'app-contents/video/Materi.mp4', 'app-contents/poster/1_fm87fAluZi8ZtS231kgw1g.png', 'video/mp4'),
+(2, 'Sebuah tutorial Sederhana', 'app-contents/video/Alan_Walker_-_Sing_Me_To_Sleep_360p.mp4', 'app-contents/poster/Screenshot_2018-01-09_19-45-27.png', 'video/mp4');
+
 --
 -- Indexes for dumped tables
 --
@@ -125,3 +123,30 @@ ALTER TABLE `users`
 ALTER TABLE `videos`
   ADD PRIMARY KEY (`ID`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `photos`
+--
+ALTER TABLE `photos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

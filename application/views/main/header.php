@@ -15,6 +15,25 @@
 		<script>
 		new WOW().init();
 		</script>
+		<script src="<?php echo base_url("app-contents/main/");?>js/bootstrap.js"></script>
+		<style type="text/css">
+			.dropdown {
+				position: relative;
+			}
+			.dropdown-menu {
+				border-radius: 0;
+				border-color: #eee;
+				box-shadow: none;
+				top: 2.85em;
+			}
+			.dropdown-menu li {
+				list-style: none;
+				display: block;
+			}
+			.dropdown-menu li a {
+				padding: 5px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="header">
@@ -28,8 +47,13 @@
 						<li class="active"><a href="#"><h3>Museum Affandi</h3></a></li>
 						<li></li>
 						<li><a href="<?php echo base_url(); ?>">Home</a></li>
-						<li><a href="<?php echo base_url(); ?>gallery/foto">Foto</a></li>
-						<li><a href="<?php echo base_url(); ?>gallery/video">Video</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo base_url(); ?>gallery/foto">Foto</a></li>
+								<li><a href="<?php echo base_url(); ?>gallery/video">Video</a></li>
+							</ul>
+						</li>
 						<li><a href="<?php echo base_url(); ?>main/about-us">About Us</a></li>
 						<div class="clearfix"></div>
 					</ul>

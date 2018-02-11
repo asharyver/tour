@@ -50,7 +50,8 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery</a>
 							<ul class="dropdown-menu">
-								<li><a href="<?php echo base_url(); ?>gallery/foto">Foto</a></li>
+								<li><a href="<?php echo base_url(); ?>gallery/foto">Foto 360</a></li>
+								<li><a href="<?php echo base_url(); ?>gallery/foto-biasa">Foto Biasa</a></li>
 								<li><a href="<?php echo base_url(); ?>gallery/video">Video</a></li>
 							</ul>
 						</li>

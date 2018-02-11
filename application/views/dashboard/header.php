@@ -269,15 +269,12 @@
                                 <!-- <span>Font awesome </span> -->
                             <!-- </a> -->
                         <!-- </li> -->
-                        <li> <!--  class="sub-menu" -->
-                            <a href="<?php echo base_url('photo');?>">
-                                <i class="fa fa-camera"></i>
-                                <span>Photo</span>
-                            </a>
-                            <!-- <ul class="sub"> -->
-                                <!-- <li><a href="<?php echo base_url('photo');?>">Manage Photo</a></li> -->
-                                <!-- <li><a href="<?php echo base_url('photo/gallery');?>">Gallery</a></li> -->
-                            <!-- </ul> -->
+                        <li class="sub-menu"> <!--  class="sub-menu" -->
+                            <a href="#"><i class="fa fa-photo"></i> <span>Photo</span></a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url('photo');?>">Foto 360</a></li>
+                                <li><a href="<?php echo base_url('photo-basic');?>">Foto Biasa</a></li>
+                            </ul>
                         </li>
                         <li> <!--  class="sub-menu" -->
                             <a href="<?php echo base_url('video');?>">

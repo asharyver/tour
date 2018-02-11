@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Photo extends CI_Controller {
+class Photo_basic extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('photos');
+		$this->load->model('photos_basic');
 		$this->auth->redIfNotLogin();
 	}
 
@@ -21,8 +21,8 @@ class Photo extends CI_Controller {
 			$offset = $page * $limit;
 		}
 		
-		$config['base_url'] = base_url('photo');
-		$config['total_rows'] = $this->photos->count();
+		$config['base_url'] = base_url('photo-basic');
+		$config['total_rows'] = $this->photos_basic->count();
 		$config['per_page'] = $limit;
 		$config['num_links'] = 2;
 		$config['use_page_numbers'] = true;
@@ -43,59 +43,65 @@ class Photo extends CI_Controller {
 		$this->pagination->initialize($config);
 		
 		$args['title'] = 'Media';
-		$args['media'] = $this->photos->getAll($limit, $offset);
+		$args['media'] = $this->photos_basic->getAll($limit, $offset);
 		$args['error'] = $this->session->flashdata('error');
 		$args['success'] = $this->session->flashdata('success');
 		$args['pagination'] = $this->pagination->create_links();
-		$this->template->dashboard('photo/manage', $args);
+		$this->template->dashboard('photo_basic/manage', $args);
 	}
 	
 	public function upload() {
 		if ($this->input->post('upload') !== 'upload') {
-			redirect('photo');
+			redirect('photo-basic');
 		}
 		
 		$this->load->helper('security');
-		$config['upload_path'] 		= FCPATH .'app-contents/photo/';
+		$config['upload_path'] 		= FCPATH .'app-contents/photo-basic/';
 		$config['file_ext_tolower'] = true;
 		$config['allowed_types']    = '*';
 		$config['overwrite'] 		= true;
 		$this->load->library('upload', $config);
 		
-		$this->upload->do_upload('photo');
-		$files = $this->upload->data();
-		$data = [
-			'name' => $this->input->post('name'),
-			'path' => 'app-contents/photo/'.$files['file_name'],
-			'shown' => (bool) $this->input->post('shown_in_gallery'),
-			'time' => time()
-		];
-		$this->photos->save($data);
+		if ($this->upload->do_upload('photo')) {
+			$files = $this->upload->data();
+			$data = [
+				'title' => $this->input->post('title'),
+				'image' => 'app-contents/photo-basic/'.$files['file_name'],
+				'caption' => $this->input->post('caption'),
+				'shown' => (bool) $this->input->post('shown_in_gallery'),
+				'time' => time()
+			];
+			$this->photos_basic->save($data);
+			
+			$this->session->set_flashdata('success', 'Foto berhasil diupload!');
+		} else {
+			$this->session->set_flashdata('error', 'Foto tidak berhasil diupload !');
+		}
 		
-		redirect('photo');
+		redirect('photo-basic');
 	}
 	
 	public function delete($id) {
-		if (empty($media = $this->photos->get($id))) {
+		if (empty($media = $this->photos_basic->get($id))) {
 			if ($this->input->is_ajax_request()) {
 				echo json_encode(['err' => 'File Tidak Ditemukan']);
 				$this->session->set_flashdata('error', 'Foto tidak ditemukan !');
 				exit;
 			}
 			$this->session->set_flashdata('error', 'Foto tidak ditemukan !');
-			redirect('photo');
+			redirect('photo-basic');
 		}
 		
 		@unlink($media->path);
 		
-		$this->photos->delete($id);
+		$this->photos_basic->delete($id);
 		if ($this->input->is_ajax_request()) {
 			echo json_encode(['err' => 'ok']);
 			$this->session->set_flashdata('success', 'Foto telah dihapus');
 			exit;
 		}
 		$this->session->set_flashdata('success', 'Foto telah dihapus');
-		redirect('photo');
+		redirect('photo-basic');
 	}
 	
 	public function edit($id) {
@@ -107,11 +113,12 @@ class Photo extends CI_Controller {
 				exit;
 			}
 			$this->session->set_flashdata('error', 'Foto tidak ditemukan !');
-			redirect('photo');
+			redirect('photo-basic');
 		}
 		
 		$data = [
-			'name' => $this->input->post('name'),
+			'title' => $this->input->post('title'),
+			'caption' => $this->input-post('caption'),
 			'shown' => (bool) $this->input->post('shown')
 		];
 		
@@ -122,15 +129,9 @@ class Photo extends CI_Controller {
 			exit;
 		}
 		$this->session->set_flashdata('success', 'Foto telah diedit');
-		redirect('photo');
+		redirect('photo-basic');
 	}
-	
-	public function gallery()
-	{
-		
-	}
-
 }
 
-/* End of file Photo.php */
-/* Location: ./application/controllers/Photo.php */
+/* End of file Photo_basic.php */
+/* Location: ./application/controllers/Photo_basic.php */

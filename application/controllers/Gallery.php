@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Gallery extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(['videos', 'photos']);
+		$this->load->model(['videos', 'photos', 'photos_basic']);
 	}
 	
 	public function index() {
@@ -43,9 +43,46 @@ class Gallery extends CI_Controller {
 		$this->pagination->initialize($config);
 		
 		$args['posts'] = $this->photos->getAll($limit, $offset);
-		$args['title'] = 'Gallery Foto';
+		$args['title'] = 'Gallery Foto 360';
 		$args['pagination'] = $this->pagination->create_links();
 		$this->template->main('gallery/foto', $args);
+	}
+	
+	public function foto_biasa() {
+		$this->load->library('pagination');
+		$page = $this->input->get('page');
+		$limit = 10;
+		$offset = 0;
+		
+		if (!empty($page)) {
+			$offset = $page * $limit;
+		}
+		
+		$config['base_url'] = base_url('gallery/foto-biasa');
+		$config['total_rows'] = $this->photos_basic->count();
+		$config['per_page'] = $limit;
+		$config['num_links'] = 2;
+		$config['use_page_numbers'] = true;
+		$config['page_query_string'] = true;
+		$config['query_string_segment'] = 'page';
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li'>
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li'>
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$args['posts'] = $this->photos_basic->getAll($limit, $offset);
+		$args['title'] = 'Gallery Foto Biasa';
+		$args['pagination'] = $this->pagination->create_links();
+		$this->template->main('gallery/foto-biasa', $args);
 	}
 	
 	public function video() {

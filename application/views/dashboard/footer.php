@@ -1,7 +1,7 @@
 <!-- footer -->
 <div class="footer">
 <div class="wthree-copyright">
-<p>© <?php echo date('Y');?> Tour. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+<p>© <?php echo date('Y');?> Tour. All rights reserved</p>
 </div>
 </div>
 <!-- / footer -->
